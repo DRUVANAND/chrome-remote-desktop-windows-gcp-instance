@@ -1,4 +1,4 @@
-/*resource "google_compute_instance" "chrome_desktop" {
+resource "google_compute_instance" "chrome_desktop" {
   name         = "automate-windows-chrome-remote-desktop"
   machine_type = "e2-medium"
 
@@ -16,10 +16,9 @@
     }
   }
 
-  # Set up the Chrome Remote Desktop extension on the instance
-  metadata = {
-    enable-remoting= "true"
-  }
+ metadata_startup_script = "powershell.exe Set-ExecutionPolicy RemoteSigned -force; (new-object System.Net.WebClient).DownloadFile('https://dl.google.com/chrome-remote-desktop/chromeremotedesktophost.msi', 'C:/chromeremotedesktophost.msi'); Start-Process 'msiexec.exe' -Wait -ArgumentList '/i C:/chromeremotedesktophost.msi /quiet /qn /norestart'; Remove-Item C:/chromeremotedesktophost.msi -Force"
+
+ tags = ["chrome-remote-desktop"]
 }
 
 
@@ -28,8 +27,8 @@ resource "google_compute_firewall" "chrome_desktop" {
   network = "default"
   allow {
     protocol = "tcp"
-    ports    = ["3389"]
+    ports    = ["443","3389"]
   }
   source_ranges = ["0.0.0.0/0"]
 }
-*/
+
