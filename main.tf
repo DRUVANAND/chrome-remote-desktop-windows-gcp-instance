@@ -16,7 +16,7 @@ resource "google_compute_instance" "chrome_desktop" {
     }
   }
 
-  metadata_startup_script = file("startup-script.ps1")
+  metadata_startup_script = "${file("startup-script.ps1")}"
   metadata = {
     enable-remoting = "true"
   }
