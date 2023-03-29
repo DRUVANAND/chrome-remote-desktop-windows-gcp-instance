@@ -20,12 +20,6 @@ resource "google_compute_instance" "chrome_desktop" {
   metadata = {
     enable-remoting= "true"
   }
-
-  # Allow RDP traffic to the instance
-  allow {
-    protocol = "tcp"
-    ports    = ["3389"]
-  }
 }
 
 
