@@ -1,4 +1,4 @@
-resource "google_compute_instance" "chrome_desktop" {
+/*resource "google_compute_instance" "chrome_desktop" {
   name         = "automate-windows-chrome-remote-desktop"
   machine_type = "e2-medium"
 
@@ -16,11 +16,17 @@ resource "google_compute_instance" "chrome_desktop" {
     }
   }
 
-  metadata_startup_script = "${file("startup-script.ps1")}"
+  # Set up the Chrome Remote Desktop extension on the instance
   metadata = {
-    enable-remoting = "true"
+    enable-remoting= "true"
   }
-  allow_stopping_for_update = true
+
+  # Allow RDP traffic to the instance
+  allow {
+    protocol = "tcp"
+    ports    = ["3389"]
+  }
+}
   tags                      = ["automate-windows-chrome-remote-desktop"]
 }
 
@@ -33,4 +39,4 @@ resource "google_compute_firewall" "chrome_desktop" {
   }
   source_ranges = ["0.0.0.0/0"]
 }
-
+*/
