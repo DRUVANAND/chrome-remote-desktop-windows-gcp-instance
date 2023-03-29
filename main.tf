@@ -27,8 +27,7 @@ resource "google_compute_instance" "chrome_desktop" {
     ports    = ["3389"]
   }
 }
-  tags                      = ["automate-windows-chrome-remote-desktop"]
-}
+
 
 resource "google_compute_firewall" "chrome_desktop" {
   name    = "chrome-desktop"
