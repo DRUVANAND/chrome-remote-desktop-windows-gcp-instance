@@ -1,4 +1,4 @@
-resource "google_compute_instance" "chrome_desktop" {
+/*resource "google_compute_instance" "chrome_desktop" {
   name         = "automate-windows-chrome-remote-desktop"
   machine_type = "e2-medium"
 
@@ -31,4 +31,4 @@ resource "google_compute_firewall" "chrome_desktop" {
   }
   source_ranges = ["0.0.0.0/0"]
 }
-
+*/
