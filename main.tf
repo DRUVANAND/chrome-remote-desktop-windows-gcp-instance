@@ -4,7 +4,7 @@ resource "google_compute_instance" "chrome_desktop" {
 
   boot_disk {
     initialize_params {
-      image = "projects/windows-cloud/global/images/windows-server-2022-datacenter-v20220322"
+      image = "windows-server-2022-dc-v20230315"
     }
   }
 
