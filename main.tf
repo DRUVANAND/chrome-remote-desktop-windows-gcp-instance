@@ -1,4 +1,4 @@
-resource "google_compute_instance" "chrome-remote-desktop" {
+/*resource "google_compute_instance" "chrome-remote-desktop" {
   name         = "chrome-remote-desktop"
   machine_type = "n1-standard-2"
   zone         = "us-central1-a"
@@ -35,3 +35,4 @@ resource "google_compute_firewall" "chrome-remote-desktop" {
   direction     = "INGRESS"
   target_tags   = ["chrome-remote-desktop"]
 }
+*/
