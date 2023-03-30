@@ -13,8 +13,6 @@ resource "google_compute_instance" "chrome-remote-desktop" {
     network = "default"
 
   access_config {
-      // Create an External IP address for the instance
-      nat_ip = google_compute_address.external-ip.address
     }
   }
   # Install Chrome Remote Desktop Host on startup
