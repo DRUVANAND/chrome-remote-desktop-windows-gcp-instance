@@ -1,4 +1,4 @@
-/*resource "google_compute_instance" "chrome-remote-desktop" {
+resource "google_compute_instance" "chrome-remote-desktop" {
   name         = "chrome-remote-desktop"
   machine_type = "n1-standard-2"
   zone         = "us-central1-a"
@@ -16,14 +16,13 @@
     }
   }
   # Install Chrome Remote Desktop Host on startup
-  metadata_startup_script = <<SCRIPT
-    $installer = "$env:TEMP\chromeremotedesktophost.msi"
+ metadata_startup_script = <<-EOF
+    $installer = "$env:TEMP\\chromeremotedesktophost.msi"
     $uri = 'https://dl.google.com/edgedl/chrome-remote-desktop/chromeremotedesktophost.msi'
-    (New-Object Net.WebClient).DownloadFile($uri,"$installer") 
-    Start-Process $installer -Wait 
+    (New-Object Net.WebClient).DownloadFile($uri, $installer)
+    Start-Process $installer -Wait
     Remove-Item $installer
-  SCRIPT
-
+  EOF
   tags = ["chrome-remote-desktop"]
 }
 
@@ -36,4 +35,3 @@ resource "google_compute_firewall" "chrome_desktop" {
   }
   source_ranges = ["0.0.0.0/0"]
 }
-*/
