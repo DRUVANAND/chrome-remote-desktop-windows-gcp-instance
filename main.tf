@@ -18,6 +18,8 @@ resource "google_compute_instance" "chrome-remote-desktop" {
   # Install Chrome Remote Desktop Host on startup
  metadata = {
     windows-startup-script-ps1 = file("startup-script.ps1")
+ }
+}
 
 resource "google_compute_firewall" "chrome_desktop" {
   name    = "chrome-desktop"
