@@ -1,4 +1,4 @@
-/*resource "google_compute_instance" "chrome-remote-desktop" {
+resource "google_compute_instance" "chrome-remote-desktop" {
   name         = "chrome-remote-desktop"
   machine_type = "n1-standard-2"
   zone         = "us-central1-a"
@@ -19,6 +19,13 @@
  metadata = {
     windows-startup-script-ps1 = file("startup-script.ps1")
  }
+ schedule_policy {
+    start_time = "08:00"
+    end_time = "17:00"
+    recurrence {
+      weekday = [1, 2, 3, 4, 5]
+    }
+  }
 }
 
 resource "google_compute_firewall" "chrome_desktop" {
@@ -30,4 +37,4 @@ resource "google_compute_firewall" "chrome_desktop" {
   }
   source_ranges = ["0.0.0.0/0"]
 }
-*/
+
