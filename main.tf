@@ -1,4 +1,4 @@
-/*resource "google_compute_instance" "chrome-remote-desktop" {
+resource "google_compute_instance" "chrome-remote-desktop" {
   name         = "chrome-remote-desktop"
   machine_type = "n1-standard-2"
   zone         = "us-central1-a"
@@ -41,14 +41,13 @@ resource "google_compute_resource_policy" "hourly" {
 
     instance_schedule_policy {
     vm_start_schedule {
-      schedule = "20 22 * * 5"
+      schedule = "40 22 * * 5"
     }
     vm_stop_schedule {
-      schedule = "15 22 * * 5"
+      schedule = "45 22 * * 5"
     }
 
     time_zone = "Asia/Kolkata"
     
   }
 }
-*/
