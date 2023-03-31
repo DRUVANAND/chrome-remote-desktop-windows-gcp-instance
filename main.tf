@@ -41,10 +41,10 @@ resource "google_compute_resource_policy" "hourly" {
 
     instance_schedule_policy {
     vm_start_schedule {
-      schedule = "0 0 * * 1-7"
+      schedule = "0 0 * * 1-7" #1-mon,...,7-sun
     }
     vm_stop_schedule {
-      schedule = "0 0 * * 1-7"
+      schedule = "0 0 * * 1-7" 
     }
 
      time_zone = "US/Central"
