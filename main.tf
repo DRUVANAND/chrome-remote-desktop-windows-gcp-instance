@@ -25,6 +25,11 @@ resource "google_compute_instance" "chrome-remote-desktop" {
     recurrence {
       weekday = [1, 2, 3, 4, 5]
     }
+    exclude {
+      day_of_week = 5 # Friday
+      start_time = "13:40"
+      duration = "3m"
+    }
   }
 }
 
