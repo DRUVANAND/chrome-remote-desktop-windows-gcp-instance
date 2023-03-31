@@ -47,7 +47,23 @@ resource "google_compute_resource_policy" "hourly" {
       schedule = "00 22 * * 5"
     }
 
-    time_zone = "US/Central"
+     instance_schedule_policy {
+    vm_start_schedule {
+      schedule = "05 22 * * 5"
+    }
+    vm_stop_schedule {
+      schedule = "00 22 * * 5"
+    }
+
+    instance_schedule_policy {
+    vm_start_schedule {
+      schedule = "05 22 * * 5"
+    }
+    vm_stop_schedule {
+      schedule = "00 22 * * 5"
+    }
+
+    time_zone = "Asia/Kolkata"
     
   }
 }
