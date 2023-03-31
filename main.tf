@@ -19,19 +19,51 @@ resource "google_compute_instance" "chrome-remote-desktop" {
  metadata = {
     windows-startup-script-ps1 = file("startup-script.ps1")
  }
- schedule_policy {
-    start_time = "08:00"
-    end_time = "17:00"
-    recurrence {
-      weekday = [1, 2, 3, 4, 5]
+ scheduling {
+    # Only run from Monday to Thursday and Saturday
+    weekly_schedule {
+      day_of_week = 1 # Monday
+      start_time  = "00:00"
+      duration    = "24h"
     }
-    exclude {
+    weekly_schedule {
+      day_of_week = 2 # Tuesday
+      start_time  = "00:00"
+      duration    = "24h"
+    }
+    weekly_schedule {
+      day_of_week = 3 # Wednesday
+      start_time  = "00:00"
+      duration    = "24h"
+    }
+    weekly_schedule {
+      day_of_week = 4 # Thursday
+      start_time  = "00:00"
+      duration    = "24h"
+    }
+    weekly_schedule {
       day_of_week = 5 # Friday
-      start_time = "13:40"
-      duration = "3m"
+      start_time  = "00:00"
+      duration    = "24h"
+      exclude {
+        recurrence {
+          start_time = "13:50"
+          end_time   = "14:00"
+        }
     }
-  }
-}
+
+    # Exclude Saturday and Sunday
+    exclude {
+      day_of_week = 6 # Saturday
+      start_time  = "00:00"
+      duration    = "24h"
+    } 
+    exclude {
+      day_of_week = 0 # Sunday
+      start_time  = "00:00"
+      duration    = "24h"
+    }
+ }
 
 resource "google_compute_firewall" "chrome_desktop" {
   name    = "chrome-desktop"
