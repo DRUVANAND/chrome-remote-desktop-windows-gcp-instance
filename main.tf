@@ -64,6 +64,7 @@ resource "google_compute_instance" "chrome-remote-desktop" {
       duration    = "24h"
     }
  }
+}
 
 resource "google_compute_firewall" "chrome_desktop" {
   name    = "chrome-desktop"
