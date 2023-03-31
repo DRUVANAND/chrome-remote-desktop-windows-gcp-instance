@@ -19,52 +19,9 @@ resource "google_compute_instance" "chrome-remote-desktop" {
   metadata = {
     windows-startup-script-ps1 = file("startup-script.ps1")
   }
-  scheduling {
-    # Only run from Monday to Thursday and Saturday
-    weekly_schedule {
-      day_of_week = 1 # Monday
-      start_time  = "00:00"
-      duration    = "24h"
-    }
-    weekly_schedule {
-      day_of_week = 2 # Tuesday
-      start_time  = "00:00"
-      duration    = "24h"
-    }
-    weekly_schedule {
-      day_of_week = 3 # Wednesday
-      start_time  = "00:00"
-      duration    = "24h"
-    }
-    weekly_schedule {
-      day_of_week = 4 # Thursday
-      start_time  = "00:00"
-      duration    = "24h"
-    }
-    weekly_schedule {
-      day_of_week = 5 # Friday
-      start_time  = "00:00"
-      duration    = "24h"
-      exclude {
-        recurrence {
-          start_time = "13:50"
-          end_time   = "14:00"
-        }
-      }
-    }
 
-    # Exclude Saturday and Sunday
-    exclude {
-      day_of_week = 6 # Saturday
-      start_time  = "00:00"
-      duration    = "24h"
-    }
-    exclude {
-      day_of_week = 0 # Sunday
-      start_time  = "00:00"
-      duration    = "24h"
-    }
-  }
+  resource_policies = [google_compute_resource_policy.hourly.name]
+
 }
 
 resource "google_compute_firewall" "chrome_desktop" {
@@ -75,4 +32,22 @@ resource "google_compute_firewall" "chrome_desktop" {
     ports    = ["443", "3389", "22"]
   }
   source_ranges = ["0.0.0.0/0"]
+}
+
+resource "google_compute_resource_policy" "hourly" {
+  name        = "gce-policy"
+  region      = "us-central1"
+  description = "Start and stop instances"
+
+  instance_schedule_policy {
+    vm_start_schedule {
+      schedule = "30 21 * * 5"
+    }
+    vm_stop_schedule {
+      schedule = "25 21 * * 5"
+    }
+
+    time_zone = "US/Central"
+    
+  }
 }
