@@ -12,14 +12,14 @@ resource "google_compute_instance" "chrome-remote-desktop" {
   network_interface {
     network = "default"
 
-  access_config {
+    access_config {
     }
   }
   # Install Chrome Remote Desktop Host on startup
- metadata = {
+  metadata = {
     windows-startup-script-ps1 = file("startup-script.ps1")
- }
- scheduling {
+  }
+  scheduling {
     # Only run from Monday to Thursday and Saturday
     weekly_schedule {
       day_of_week = 1 # Monday
@@ -50,6 +50,7 @@ resource "google_compute_instance" "chrome-remote-desktop" {
           start_time = "13:50"
           end_time   = "14:00"
         }
+      }
     }
 
     # Exclude Saturday and Sunday
@@ -57,13 +58,13 @@ resource "google_compute_instance" "chrome-remote-desktop" {
       day_of_week = 6 # Saturday
       start_time  = "00:00"
       duration    = "24h"
-    } 
+    }
     exclude {
       day_of_week = 0 # Sunday
       start_time  = "00:00"
       duration    = "24h"
     }
- }
+  }
 }
 
 resource "google_compute_firewall" "chrome_desktop" {
@@ -71,8 +72,7 @@ resource "google_compute_firewall" "chrome_desktop" {
   network = "default"
   allow {
     protocol = "tcp"
-    ports    = ["443","3389","22"]
+    ports    = ["443", "3389", "22"]
   }
   source_ranges = ["0.0.0.0/0"]
 }
-
