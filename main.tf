@@ -20,7 +20,7 @@ resource "google_compute_instance" "chrome-remote-desktop" {
     windows-startup-script-ps1 = file("startup-script.ps1")
   }
 
-  resource_policies = [google_compute_resource_policy.hourly.name]
+  resource_policies = [output.resource_policy_url]
 
 }
 
